@@ -16,7 +16,7 @@ from sklearn.metrics import classification_report
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
 
 def load_data(database_filepath):
     ''' load data from sql database and
@@ -31,7 +31,7 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
-   '''tokenize input messages'''
+    '''tokenize input messages'''
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
     clean_tokens = []
