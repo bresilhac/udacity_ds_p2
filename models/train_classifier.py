@@ -19,7 +19,8 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.model_selection import train_test_split
 
 def load_data(database_filepath):
-    
+    ''' load data from sql database and
+     return feature dataframe, label-data DataFrame, labels as list'''
     # load data from database
     engine = create_engine('sqlite:///'+database_filepath)
     df = pd.read_sql('SELECT * FROM DisasterResponseDatabase', con=engine)
@@ -30,7 +31,7 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
-   
+   '''tokenize input messages'''
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
     clean_tokens = []
@@ -53,12 +54,14 @@ def tokenize(text):
 
 
 def build_model():
+    '''build pipeland, set parameter, do Gridsearch and return model'''
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
         ('clf', MultiOutputClassifier(RandomForestClassifier()))
     ])
     
+    # small set of parameters because of time
     parameters = {
         'vect__max_df':[0.75,1.0],
         'clf__estimator__n_estimators': [20, 50]
@@ -70,6 +73,7 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    '''evaluate model by sklearn classification_report'''
     Y_pred = model.predict(X_test)
     
     for ix, col in enumerate(category_names):
@@ -83,6 +87,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    '''save model as pickle file'''
     pickle.dump(model, open(model_filepath, 'wb'))
 
 

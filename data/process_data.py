@@ -3,6 +3,8 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
+    '''load data from message and categries data from csv,
+    and return merged pandas dataframe'''
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
     
@@ -13,6 +15,7 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
+    ''' clean and return dataframe'''
     # create a dataframe of the 36 individual category columns
     categories = df["categories"].str.split(";", expand=True)
     
@@ -44,6 +47,7 @@ def clean_data(df):
     return df
 
 def save_data(df, database_filename):
+    '''save dataframe as sql database file'''
     engine = create_engine('sqlite:///' + database_filename)
     df.to_sql('DisasterResponseDatabase', engine, index=False)  
 
