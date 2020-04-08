@@ -7,7 +7,7 @@ from nltk.tokenize import word_tokenize
 
 from flask import Flask
 from flask import render_template, request, jsonify
-from plotly.graph_objs import Bar
+from plotly.graph_objs import Bar, Histogram
 from sklearn.externals import joblib
 from sqlalchemy import create_engine
 
@@ -46,6 +46,10 @@ def index():
     # category data
     category_counts = (df.iloc[:,4:] == 1).sum().values
     category_names = df.iloc[:,4:].columns
+
+    # word cloud data
+    message_list = df['message'].unique().tolist()
+    messagelen_list = [len(tokenize(message)) for message in message_list]
     
     # create visuals
     graphs = [
@@ -87,7 +91,28 @@ def index():
                     'tickangle': 45
                 }
             }
+        },
+
+        {
+            'data': [
+                Histogram(
+                    x = messagelen_list
+                    
+                )
+            ],
+
+            'layout': {
+                'title': 'Distribution of word counts per message',
+                'yaxis': {
+                    'title': "Number of messages"
+                },
+                'xaxis': {
+                    'title': "Number of words",
+                    'range': [0,120]
+                }
+            }
         }
+
     ]
     
     # encode plotly graphs in JSON
