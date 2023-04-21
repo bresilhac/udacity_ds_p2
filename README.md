@@ -6,7 +6,7 @@ The project consists of 3 areas.
 2. ML pipeline (train_classifier.py) to train and save a classifier model
 3. Flask web app (run.py) for interactive classification based on trained model of arbitary text data and visualisations of some data
 
-### Requierments:
+### Requirements:
 You need following python packages: 
 * flask
 * plotly
