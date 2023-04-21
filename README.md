@@ -28,3 +28,5 @@ You will need following python packages:
     `python run.py`
 
 3. Go to http://0.0.0.0:3001/
+
+### xseibel deserves total credit for the inspiration of this project.
