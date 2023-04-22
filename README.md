@@ -7,7 +7,7 @@ The project consists of 3 areas.
 3. Flask web app (run.py) for interactive classification based on trained model of arbitary text data and visualisations of some data
 
 ### Requirements:
-You will need following python packages: 
+You will need following python packages in order to execute the project: 
 * flask
 * plotly
 * sqlalchemy
