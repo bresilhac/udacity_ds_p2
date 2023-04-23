@@ -1,6 +1,7 @@
 # Disaster Response Pipeline Project
 ### Summary:
-This is a web application written in python to automatically classify text messages into different categories of disaster management. Furthermore, two visualizations from the data set are available as examples.
+This is a web application written in python to automatically classify text messages into different categories of disaster management. Furthermore, two visualizations from the data set are available as examples. This application will help the disaster victims to receive prompt medical aid and speedy recovery from the effects of the disasters. In this way the application will benefit those whose responsibility is to help those in need during a time of natural disaster.
+
 The project consists of 3 areas. 
 1. ETL pipeline (process_data.py) to cleans data and store data for further processing
 2. ML pipeline (train_classifier.py) to train and save a classifier model
