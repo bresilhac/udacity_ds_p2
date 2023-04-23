@@ -28,12 +28,28 @@ def clean_data(df):
     # rename the columns of `categories`
     categories.columns = category_colnames
     
-    for column in categories:
+    #for column in categories:
         # set each value to be the last character of the string
-        categories[column] = categories[column].str[-1]
+     #   categories[column] = categories[column].str[-1]
     
         # convert column from string to numeric
-        categories[column] = pd.to_numeric(categories[column], downcast="integer")
+      #  categories[column] = pd.to_numeric(categories[column], downcast="integer")
+        
+       # categories = df['categories'].str.split(pat=';',expand=True)
+    
+    #Fix the categories columns name
+    row = categories.iloc[[1]]
+        category_colnames = [category_name.split('-')[0] for category_name in row.values[0]]
+    categories.columns = category_colnames
+    
+    for column in categories:
+        categories[column] = categories[column].str[-1]
+        categories[column] = categories[column].astype(np.int)
+    
+    df = df.drop('categories',axis=1)
+    df = pd.concat([df,categories],axis=1)
+    df = df.drop_duplicates()
+
     
     # drop the original categories column from `df`
     df.drop("categories", axis=1, inplace=True)
